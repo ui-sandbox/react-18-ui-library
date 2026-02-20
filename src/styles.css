@@ -1,0 +1,5 @@
+@import './theme/defaultTokens.css';
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

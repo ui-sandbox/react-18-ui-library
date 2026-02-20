@@ -1,0 +1,14 @@
+# Snyk (https://snyk.io) policy file
+# This file controls which vulnerabilities are ignored during snyk test.
+# Add entries here to suppress known/accepted issues.
+version: v1.25.0
+
+# Example: ignore a specific vulnerability
+# ignore:
+#   SNYK-JS-EXAMPLE-12345:
+#     - '*':
+#         reason: Not exploitable in this context
+#         expires: 2025-12-31T00:00:00.000Z
+
+ignore: {}
+patch: {}
