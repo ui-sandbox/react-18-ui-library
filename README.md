@@ -17,6 +17,8 @@
   <em>Browse, test, and explore 70+ components</em>
 </p>
 
+![Story Book](./assets/story-book.gif)
+
 ---
 
 ## Table of Contents
