@@ -9,7 +9,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Snyk](https://img.shields.io/badge/security-snyk-blueviolet.svg)](https://snyk.io/)
 
----
+-----
 
 ## Table of Contents
 
