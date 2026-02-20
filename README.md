@@ -3,13 +3,21 @@
 > A fully customizable, theme-aware React 18 enterprise UI component library — 70+ components, schema-driven forms, fluent validation, drag-and-drop file upload, and zero runtime CSS-in-JS overhead.
 
 [![npm version](https://img.shields.io/npm/v/react-18-ui-library.svg)](https://www.npmjs.com/package/react-18-ui-library)
+[![Storybook](https://img.shields.io/badge/Storybook-View_Components-ff4785.svg)](https://6998a00a26549f1450ed8008-alszlltjoh.chromatic.com/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.4-blue.svg)](https://www.typescriptlang.org/)
 [![React](https://img.shields.io/badge/React-18-61dafb.svg)](https://react.dev/)
 [![TailwindCSS](https://img.shields.io/badge/TailwindCSS-3-38bdf8.svg)](https://tailwindcss.com/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Snyk](https://img.shields.io/badge/security-snyk-blueviolet.svg)](https://snyk.io/)
 
------
+---
+
+<p align="center">
+  <strong>📚 <a href="https://6998a00a26549f1450ed8008-alszlltjoh.chromatic.com/">View the live component library in Storybook</a></strong><br>
+  <em>Browse, test, and explore 70+ components</em>
+</p>
+
+---
 
 ## Table of Contents
 
@@ -72,6 +80,8 @@ export function App() {
 ```
 
 > **Important:** `react-18-ui-library/styles` must be imported **before** any of your own stylesheets so your CSS token overrides take precedence. You do **not** need Tailwind installed in your consuming app — all utility classes are pre-compiled into the library's stylesheet.
+
+> **📚 [View all components in Storybook →](https://6998a00a26549f1450ed8008-alszlltjoh.chromatic.com/)** — Browse and interact with the full component library.
 
 ---
 
