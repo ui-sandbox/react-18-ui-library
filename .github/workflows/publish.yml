@@ -40,7 +40,7 @@ jobs:
     if: github.event_name == 'push' && github.ref == 'refs/heads/main'
     permissions:
       id-token: write
-      contents: write
+      contents: read
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -59,16 +59,6 @@ jobs:
         run: npm run build
         env:
           SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}
-
-      - name: Configure Git
-        run: |
-          git config user.name "github-actions[bot]"
-          git config user.email "github-actions[bot]@users.noreply.github.com"
-
-      - name: Bump version and push
-        run: |
-          npm version patch -m "chore: release v%s [skip ci]"
-          git push && git push --tags
 
       - name: Publish to npm
         run: npm publish --provenance --access public
