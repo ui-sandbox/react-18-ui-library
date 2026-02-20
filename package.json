@@ -32,9 +32,9 @@
     "snyk:monitor": "snyk monitor",
     "snyk:report": "snyk test --json | node scripts/snyk-report.mjs",
     "snyk:report:html": "snyk test --json-file-output=reports/snyk-results.json; node scripts/snyk-report.mjs",
-    "publish:minor": "npm version minor && npm publish",
-    "publish:major": "npm version major && npm publish",
-    "publish:patch": "npm version patch && npm publish"
+    "publish:minor": "npm version minor && npm publish --provenance --access public",
+    "publish:major": "npm version major && npm publish --provenance --access public",
+    "publish:patch": "npm version patch && npm publish --provenance --access public"
   },
   "peerDependencies": {
     "react": "^18.0.0",
