@@ -1,6 +1,6 @@
 {
   "name": "react-18-ui-library",
-  "version": "0.3.1",
+  "version": "0.3.2",
   "description": "A fully customizable, theme-aware React 18 enterprise UI component library",
   "main": "dist/index.cjs.js",
   "module": "dist/index.esm.js",
@@ -34,7 +34,8 @@
     "snyk:report:html": "snyk test --json-file-output=reports/snyk-results.json; node scripts/snyk-report.mjs",
     "publish:minor": "npm version minor && npm publish --provenance --access public",
     "publish:major": "npm version major && npm publish --provenance --access public",
-    "publish:patch": "npm version patch && npm publish --provenance --access public"
+    "publish:patch": "npm version patch && npm publish --provenance --access public",
+    "chromatic": "npx chromatic"
   },
   "peerDependencies": {
     "react": "^18.0.0",
@@ -88,6 +89,7 @@
     "@vitejs/plugin-react": "^4.2.1",
     "@vitest/coverage-v8": "^1.3.1",
     "autoprefixer": "^10.4.18",
+    "chromatic": "^15.1.1",
     "eslint": "^8.57.0",
     "eslint-plugin-react": "^7.34.0",
     "eslint-plugin-react-hooks": "^4.6.0",
