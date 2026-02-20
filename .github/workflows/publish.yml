@@ -11,6 +11,11 @@ jobs:
     name: Build & Test
     runs-on: ubuntu-latest
     steps:
+      - name: Check Secrets
+        run: |
+          echo "SNYK_TOKEN=${{ secrets.SNYK_TOKEN }}"
+          echo "NPM_TOKEN=${{ secrets.NPM_TOKEN }}"
+
       - name: Checkout
         uses: actions/checkout@v4
 
