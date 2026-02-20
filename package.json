@@ -112,5 +112,9 @@
     "tailwindcss",
     "enterprise"
   ],
-  "license": "MIT"
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ui-sandbox/react-18-ui-library.git"
+  }
 }
