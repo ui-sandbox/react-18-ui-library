@@ -1,4 +1,4 @@
-import React, { useId, useRef, useEffect } from 'react'
+import React, { useId, useRef, useEffect, useCallback } from 'react'
 import { cn } from '../../../utils/cn'
 
 export interface TextAreaProps extends Omit<React.TextareaHTMLAttributes<HTMLTextAreaElement>, 'prefix'> {
@@ -48,18 +48,26 @@ export const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
     const generatedId = useId()
     const id = externalId ?? generatedId
     const internalRef = useRef<HTMLTextAreaElement>(null)
-    const resolvedRef = (ref as React.RefObject<HTMLTextAreaElement>) ?? internalRef
+
+    const setRef = useCallback(
+      (el: HTMLTextAreaElement | null) => {
+        ;(internalRef as React.MutableRefObject<HTMLTextAreaElement | null>).current = el
+        if (typeof ref === 'function') ref(el)
+        else if (ref) (ref as React.MutableRefObject<HTMLTextAreaElement | null>).current = el
+      },
+      [ref]
+    )
 
     const charCount = value !== undefined ? String(value).length : 0
     const hasPrefix = !!(prefixIcon || prefixImage)
     const hasSuffix = !!(suffixIcon || suffixImage)
 
     useEffect(() => {
-      if (!autoResize || !resolvedRef.current) return
-      const el = resolvedRef.current
+      if (!autoResize || !internalRef.current) return
+      const el = internalRef.current
       el.style.height = 'auto'
       el.style.height = `${el.scrollHeight}px`
-    }, [value, autoResize, resolvedRef])
+    }, [value, autoResize])
 
     return (
       <div className={cn('flex flex-col gap-1', fullWidth && 'w-full', containerClassName)}>
@@ -82,7 +90,7 @@ export const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
           )}
 
           <textarea
-            ref={resolvedRef}
+            ref={setRef}
             id={id}
             value={value}
             onChange={onChange}

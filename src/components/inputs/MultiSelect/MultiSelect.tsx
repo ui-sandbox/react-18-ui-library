@@ -105,8 +105,12 @@ export function MultiSelect({
   }
 
   useEffect(() => {
-    if (open) setTimeout(() => searchRef.current?.focus(), 10)
-    else setSearch('')
+    if (open) {
+      const raf = requestAnimationFrame(() => searchRef.current?.focus())
+      return () => cancelAnimationFrame(raf)
+    } else {
+      setSearch('')
+    }
   }, [open])
 
   useEffect(() => {

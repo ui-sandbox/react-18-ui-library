@@ -101,10 +101,7 @@ export function Rating({
                 icon ?? (
                   <Star
                     size={iconSize}
-                    className={cn(
-                      'transition-colors',
-                      hoverValue !== null ? 'text-warning fill-warning' : 'text-warning fill-warning'
-                    )}
+                    className="text-warning fill-warning transition-colors"
                   />
                 )
               ) : (

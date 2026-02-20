@@ -46,11 +46,12 @@ export function OTPInput({
   const [internalValue, setInternalValue] = useState('')
   const inputsRef = useRef<(HTMLInputElement | null)[]>([])
 
-  const value = controlledValue !== undefined ? controlledValue : internalValue
+  const isControlled = controlledValue !== undefined
+  const value = isControlled ? controlledValue : internalValue
   const digits = value.split('').slice(0, length)
 
   const update = (newVal: string) => {
-    setInternalValue(newVal)
+    if (!isControlled) setInternalValue(newVal)
     onChange?.(newVal)
     if (newVal.length === length) onComplete?.(newVal)
   }

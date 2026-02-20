@@ -41,7 +41,12 @@ function formatBytes(bytes: number): string {
   return `${parseFloat((bytes / Math.pow(k, i)).toFixed(1))} ${sizes[i]}`
 }
 
-let fileIdCounter = 0
+function generateFileId(): string {
+  if (typeof crypto !== 'undefined' && typeof crypto.randomUUID === 'function') {
+    return crypto.randomUUID()
+  }
+  return `file-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`
+}
 
 export function FileUpload({
   accept,
@@ -62,14 +67,14 @@ export function FileUpload({
     (acceptedFiles: File[], rejectedFiles: FileRejection[]) => {
       const newFiles: UploadedFile[] = acceptedFiles.map((file) => ({
         file,
-        id: `file-${++fileIdCounter}`,
+        id: generateFileId(),
         preview: file.type.startsWith('image/') ? URL.createObjectURL(file) : undefined,
         progress: 0,
       }))
 
       const rejectedMapped: UploadedFile[] = rejectedFiles.map(({ file, errors }) => ({
         file,
-        id: `file-${++fileIdCounter}`,
+        id: generateFileId(),
         error: errors[0]?.message ?? 'File rejected',
       }))
 

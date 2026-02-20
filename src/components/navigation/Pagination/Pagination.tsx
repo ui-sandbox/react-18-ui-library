@@ -77,7 +77,7 @@ export function Pagination({
 
       {pages.map((p, i) =>
         p === '...' ? (
-          <span key={`dots-${i}`} className="flex items-center justify-center w-8 h-8 text-text-muted text-sm">
+          <span key={`dots-${i === 1 ? 'left' : 'right'}`} className="flex items-center justify-center w-8 h-8 text-text-muted text-sm">
             …
           </span>
         ) : (

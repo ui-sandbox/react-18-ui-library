@@ -125,7 +125,7 @@ export function AvatarGroup({ avatars, max = 4, size = 'md', className }: Avatar
   return (
     <div className={cn('flex items-center', className)}>
       {visible.map((avatar, i) => (
-        <div key={i} className="-ml-2 first:ml-0 ring-2 ring-surface rounded-full">
+        <div key={avatar.src ?? avatar.name ?? i} className="-ml-2 first:ml-0 ring-2 ring-surface rounded-full">
           <Avatar {...avatar} size={size} />
         </div>
       ))}

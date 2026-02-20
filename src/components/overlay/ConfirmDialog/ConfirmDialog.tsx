@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useCallback, useRef } from 'react'
+import React, { createContext, useContext, useState, useCallback, useRef, useId } from 'react'
 import * as RadixDialog from '@radix-ui/react-dialog'
 import { AlertTriangle, Info, Trash2, X } from 'lucide-react'
 import { cn } from '../../../utils/cn'
@@ -71,6 +71,7 @@ const variantConfig: Record<ConfirmVariant, {
 }
 
 export function ConfirmDialogProvider({ children }: ConfirmDialogProviderProps) {
+  const descId = useId()
   const [state, setState] = useState<ConfirmState>({
     open: false,
     resolve: null,
@@ -110,7 +111,7 @@ export function ConfirmDialogProvider({ children }: ConfirmDialogProviderProps) 
               'w-full max-w-md bg-surface rounded-xl shadow-2xl border border-border p-6',
               'animate-in fade-in-0 zoom-in-95'
             )}
-            aria-describedby={description ? 'confirm-desc' : undefined}
+            aria-describedby={description ? descId : undefined}
           >
             <div className="flex items-start gap-4">
               <div className={cn('flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center', config.iconBg)}>
@@ -121,7 +122,7 @@ export function ConfirmDialogProvider({ children }: ConfirmDialogProviderProps) 
                   {title}
                 </RadixDialog.Title>
                 {description && (
-                  <p id="confirm-desc" className="mt-1 text-sm text-text-muted">
+                  <p id={descId} className="mt-1 text-sm text-text-muted">
                     {description}
                   </p>
                 )}
@@ -175,6 +176,7 @@ export function ConfirmDialog({
   cancelLabel,
   variant = 'default',
 }: ConfirmDialogProps) {
+  const staticDescId = useId()
   const config = variantConfig[variant]
 
   return (
@@ -187,7 +189,7 @@ export function ConfirmDialog({
             'w-full max-w-md bg-surface rounded-xl shadow-2xl border border-border p-6',
             'animate-in fade-in-0 zoom-in-95'
           )}
-          aria-describedby={description ? 'confirm-desc-static' : undefined}
+          aria-describedby={description ? staticDescId : undefined}
         >
           <div className="flex items-start gap-4">
             <div className={cn('flex-shrink-0 w-10 h-10 rounded-full flex items-center justify-center', config.iconBg)}>
@@ -198,7 +200,7 @@ export function ConfirmDialog({
                 {title ?? config.defaultTitle}
               </RadixDialog.Title>
               {description && (
-                <p id="confirm-desc-static" className="mt-1 text-sm text-text-muted">
+                <p id={staticDescId} className="mt-1 text-sm text-text-muted">
                   {description}
                 </p>
               )}

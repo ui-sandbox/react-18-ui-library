@@ -9,7 +9,7 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Snyk](https://img.shields.io/badge/security-snyk-blueviolet.svg)](https://snyk.io/)
 
----
+-----
 
 ## Table of Contents
 
@@ -31,6 +31,7 @@
 - [CSS Token Reference](#css-token-reference)
 - [Security — Snyk](#security--snyk)
 - [Development](#development)
+- [CI/CD — Publishing](#cicd--publishing)
 - [Peer Dependencies](#peer-dependencies)
 - [License](#license)
 
