@@ -54,7 +54,7 @@ export function Slider({
   className,
 }: SliderProps) {
   const [internalValue, setInternalValue] = React.useState(value ?? defaultValue)
-  const [showTip, setShowTip] = React.useState(false)
+  const [hoveredThumb, setHoveredThumb] = React.useState<number | null>(null)
 
   const currentValue = value ?? internalValue
 
@@ -103,9 +103,9 @@ export function Slider({
           <RadixSlider.Range className="absolute bg-primary rounded-full h-full" />
         </RadixSlider.Track>
 
-        {currentValue.map((_, i) => (
+        {currentValue.map((val, i) => (
           <RadixSlider.Thumb
-            key={i}
+            key={`thumb-${i}`}
             className={cn(
               'block rounded-full bg-white border-2 border-primary shadow-md',
               'focus:outline-none focus-visible:ring-2 focus-visible:ring-primary/40',
@@ -114,13 +114,13 @@ export function Slider({
               thumbSize[size],
               disabled && 'cursor-not-allowed hover:scale-100'
             )}
-            onMouseEnter={() => showTooltip && setShowTip(true)}
-            onMouseLeave={() => showTooltip && setShowTip(false)}
+            onMouseEnter={() => showTooltip && setHoveredThumb(i)}
+            onMouseLeave={() => showTooltip && setHoveredThumb(null)}
             aria-label={`Slider thumb ${i + 1}`}
           >
-            {showTooltip && showTip && (
+            {showTooltip && hoveredThumb === i && (
               <div className="absolute -top-8 left-1/2 -translate-x-1/2 bg-text text-background text-xs px-2 py-0.5 rounded whitespace-nowrap pointer-events-none">
-                {formatValue(currentValue[i])}
+                {formatValue(val)}
               </div>
             )}
           </RadixSlider.Thumb>

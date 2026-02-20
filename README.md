@@ -31,6 +31,7 @@
 - [CSS Token Reference](#css-token-reference)
 - [Security — Snyk](#security--snyk)
 - [Development](#development)
+- [CI/CD — Publishing](#cicd--publishing)
 - [Peer Dependencies](#peer-dependencies)
 - [License](#license)
 

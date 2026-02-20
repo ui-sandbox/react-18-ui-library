@@ -83,6 +83,42 @@ export interface JSONFormProps {
   actionsClassName?: string
 }
 
+function buildRules(field: JSONFormField) {
+  if (field.validator) {
+    const compiled = field.validator.compile()
+    return {
+      required: field.required
+        ? `${field.label ?? field.name} is required`
+        : compiled.required,
+      minLength: compiled.minLength,
+      maxLength: compiled.maxLength,
+      min: compiled.min,
+      max: compiled.max,
+      pattern: compiled.pattern,
+      validate: compiled.validate,
+    }
+  }
+  return {
+    required: field.required ? `${field.label ?? field.name} is required` : false,
+    minLength: field.validation?.minLength
+      ? { value: field.validation.minLength, message: `Minimum ${field.validation.minLength} characters` }
+      : undefined,
+    maxLength: field.validation?.maxLength
+      ? { value: field.validation.maxLength, message: `Maximum ${field.validation.maxLength} characters` }
+      : undefined,
+    min: field.validation?.min
+      ? { value: field.validation.min, message: `Minimum value is ${field.validation.min}` }
+      : undefined,
+    max: field.validation?.max
+      ? { value: field.validation.max, message: `Maximum value is ${field.validation.max}` }
+      : undefined,
+    pattern: field.validation?.pattern
+      ? { value: field.validation.pattern, message: 'Invalid format' }
+      : undefined,
+    validate: field.validation?.validate,
+  }
+}
+
 export function JSONForm({
   schema,
   defaultValues,
@@ -143,41 +179,7 @@ export function JSONForm({
               <Controller
                 name={field.name}
                 control={control}
-                rules={(() => {
-                  if (field.validator) {
-                    const compiled = field.validator.compile()
-                    return {
-                      required: field.required
-                        ? `${field.label ?? field.name} is required`
-                        : compiled.required,
-                      minLength: compiled.minLength,
-                      maxLength: compiled.maxLength,
-                      min: compiled.min,
-                      max: compiled.max,
-                      pattern: compiled.pattern,
-                      validate: compiled.validate,
-                    }
-                  }
-                  return {
-                    required: field.required ? `${field.label ?? field.name} is required` : false,
-                    minLength: field.validation?.minLength
-                      ? { value: field.validation.minLength, message: `Minimum ${field.validation.minLength} characters` }
-                      : undefined,
-                    maxLength: field.validation?.maxLength
-                      ? { value: field.validation.maxLength, message: `Maximum ${field.validation.maxLength} characters` }
-                      : undefined,
-                    min: field.validation?.min
-                      ? { value: field.validation.min, message: `Minimum value is ${field.validation.min}` }
-                      : undefined,
-                    max: field.validation?.max
-                      ? { value: field.validation.max, message: `Maximum value is ${field.validation.max}` }
-                      : undefined,
-                    pattern: field.validation?.pattern
-                      ? { value: field.validation.pattern, message: 'Invalid format' }
-                      : undefined,
-                    validate: field.validation?.validate,
-                  }
-                })()}
+                rules={buildRules(field)}
                 render={({ field: f }) => {
                   const commonProps = {
                     label: field.label,

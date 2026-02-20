@@ -29,15 +29,19 @@ const itemBase = cn(
   'data-[disabled]:opacity-50 data-[disabled]:cursor-not-allowed data-[disabled]:pointer-events-none'
 )
 
+function stableKey(item: ContextMenuItem, i: number): string {
+  return `${item.type ?? 'item'}-${item.label ?? ''}-${i}`
+}
+
 function renderItems(items: ContextMenuItem[]) {
   return items.map((item, i) => {
     if (item.type === 'separator') {
-      return <RadixContextMenu.Separator key={i} className="my-1 h-px bg-border" />
+      return <RadixContextMenu.Separator key={`separator-${i}`} className="my-1 h-px bg-border" />
     }
 
     if (item.type === 'label') {
       return (
-        <RadixContextMenu.Label key={i} className="px-2 py-1 text-xs font-semibold text-text-muted uppercase tracking-wide">
+        <RadixContextMenu.Label key={stableKey(item, i)} className="px-2 py-1 text-xs font-semibold text-text-muted uppercase tracking-wide">
           {item.label}
         </RadixContextMenu.Label>
       )
@@ -46,7 +50,7 @@ function renderItems(items: ContextMenuItem[]) {
     if (item.type === 'checkbox') {
       return (
         <RadixContextMenu.CheckboxItem
-          key={i}
+          key={stableKey(item, i)}
           checked={item.checked}
           onCheckedChange={item.onCheckedChange}
           disabled={item.disabled}
@@ -62,7 +66,7 @@ function renderItems(items: ContextMenuItem[]) {
 
     if (item.children && item.children.length > 0) {
       return (
-        <RadixContextMenu.Sub key={i}>
+        <RadixContextMenu.Sub key={stableKey(item, i)}>
           <RadixContextMenu.SubTrigger
             disabled={item.disabled}
             className={cn(itemBase, item.destructive && 'text-error')}
@@ -86,7 +90,7 @@ function renderItems(items: ContextMenuItem[]) {
 
     return (
       <RadixContextMenu.Item
-        key={i}
+        key={stableKey(item, i)}
         disabled={item.disabled}
         onSelect={item.onClick}
         className={cn(itemBase, item.destructive ? 'text-error' : 'text-text')}
