@@ -1,4 +1,4 @@
-import React, { useId, useState } from 'react'
+import React, { useId, useState, useCallback } from 'react'
 import { ChevronUp, ChevronDown } from 'lucide-react'
 import { cn } from '../../../utils/cn'
 
@@ -61,6 +61,7 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
     const id = externalId ?? generatedId
     const [internalValue, setInternalValue] = useState<number | undefined>(defaultValue)
     const [inputStr, setInputStr] = useState(defaultValue !== undefined ? String(defaultValue) : '')
+    const [isFocused, setIsFocused] = useState(false)
 
     const value = controlledValue !== undefined ? controlledValue : internalValue
     const sz = sizeClasses[size]
@@ -102,7 +103,10 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
       }
     }
 
+    const handleFocus = useCallback(() => setIsFocused(true), [])
+
     const handleBlur = () => {
+      setIsFocused(false)
       if (value !== undefined) commit(clamp(value))
       else setInputStr('')
     }
@@ -125,7 +129,7 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
       if (!isDigit && !isMinus && !isDot) e.preventDefault()
     }
 
-    const displayValue = document.activeElement?.id === id
+    const displayValue = isFocused
       ? inputStr
       : value !== undefined
         ? (formatValue ? formatValue(value) : String(value))
@@ -151,6 +155,7 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
             inputMode="decimal"
             value={displayValue}
             onChange={handleChange}
+            onFocus={handleFocus}
             onBlur={handleBlur}
             onKeyDown={handleKeyDown}
             disabled={disabled}

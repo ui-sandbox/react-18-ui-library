@@ -1,4 +1,4 @@
-import React, { useId, useState } from 'react'
+import React, { useId, useState, useEffect } from 'react'
 import { cn } from '../../../utils/cn'
 
 export interface CountryCode {
@@ -110,6 +110,18 @@ export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(
       controlledValue?.countryCode ?? defaultCC
     )
     const [phoneNumber, setPhoneNumber] = useState(controlledValue?.number ?? '')
+
+    useEffect(() => {
+      if (controlledValue?.countryCode) {
+        setSelectedCountry(controlledValue.countryCode)
+      }
+    }, [controlledValue?.countryCode])
+
+    useEffect(() => {
+      if (controlledValue?.number !== undefined) {
+        setPhoneNumber(controlledValue.number)
+      }
+    }, [controlledValue?.number])
 
     const activeCountry = controlledValue?.countryCode ?? selectedCountry
     const activeNumber = controlledValue?.number ?? phoneNumber

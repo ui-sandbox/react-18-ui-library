@@ -35,6 +35,8 @@ export interface TableProps<T = Record<string, unknown>> {
   className?: string
 }
 
+const SKELETON_WIDTHS = [65, 80, 55, 75, 90, 60, 70, 85, 50, 78]
+
 export function Table<T = Record<string, unknown>>({
   columns,
   data,
@@ -161,11 +163,11 @@ export function Table<T = Record<string, unknown>>({
         <tbody>
           {loading ? (
             Array.from({ length: 5 }).map((_, i) => (
-              <tr key={i} className="border-b border-border">
+              <tr key={`skeleton-row-${i}`} className="border-b border-border">
                 {selectable && <td className={cellPad}><div className="h-4 w-4 rounded bg-surface-hover animate-pulse" /></td>}
-                {columns.map((col) => (
+                {columns.map((col, ci) => (
                   <td key={col.key} className={cellPad}>
-                    <div className="h-4 rounded bg-surface-hover animate-pulse" style={{ width: `${60 + Math.random() * 40}%` }} />
+                    <div className="h-4 rounded bg-surface-hover animate-pulse" style={{ width: `${SKELETON_WIDTHS[(i * columns.length + ci) % SKELETON_WIDTHS.length]}%` }} />
                   </td>
                 ))}
               </tr>

@@ -107,24 +107,27 @@ export function SearchSelect(props: SearchSelectProps) {
 
   const isSelected = (val: string) => selectedValues.includes(val)
 
+  const propsRef = React.useRef(props)
+  propsRef.current = props
+
   const toggle = useCallback(
     (val: string) => {
-      if (props.multiple) {
-        const current = props.value ?? []
+      const p = propsRef.current
+      if (p.multiple) {
+        const current = p.value ?? []
         const next = current.includes(val)
           ? current.filter((v) => v !== val)
           : maxSelected && current.length >= maxSelected
           ? current
           : [...current, val]
-        props.onChange?.(next)
+        p.onChange?.(next)
       } else {
-        props.onChange?.(val)
+        p.onChange?.(val)
         setOpen(false)
         setQuery('')
       }
     },
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-    [props.multiple, props.value, maxSelected]
+    [maxSelected]
   )
 
   const removeChip = (val: string, e: React.MouseEvent) => {

@@ -26,7 +26,7 @@ export { cn } from './utils/cn'
 
 // Layout
 export { Navbar } from './components/layout/Navbar'
-export type { NavbarProps, NavbarLink } from './components/layout/Navbar'
+export type { NavbarProps, NavbarLink, NavbarProfile, NavbarProfileMenuItem } from './components/layout/Navbar'
 
 export { Sidebar } from './components/layout/Sidebar'
 export type { SidebarProps, SidebarItem } from './components/layout/Sidebar'

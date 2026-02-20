@@ -154,10 +154,14 @@ export function CommandPalette({
   if (!open) return null
   if (typeof document === 'undefined') return null
 
-  let globalIndex = 0
+  // Build a flat ordered list for index-based rendering — stable, not mutated during render
+  const orderedItems: CommandItem[] = [
+    ...filteredItems,
+    ...filteredGroups.flatMap((g) => g.items),
+  ]
 
   const renderItem = (item: CommandItem) => {
-    const idx = globalIndex++
+    const idx = orderedItems.indexOf(item)
     const isActive = idx === activeIndex
     return (
       <div
@@ -191,8 +195,8 @@ export function CommandPalette({
         </div>
         {item.shortcut && (
           <div className="flex items-center gap-1 flex-shrink-0">
-            {item.shortcut.map((k, i) => (
-              <Kbd key={i} size="sm">{k}</Kbd>
+            {item.shortcut.map((k) => (
+              <Kbd key={k} size="sm">{k}</Kbd>
             ))}
           </div>
         )}

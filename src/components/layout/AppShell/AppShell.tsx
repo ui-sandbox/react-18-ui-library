@@ -38,7 +38,7 @@ export function AppShell({
         {/* Sidebar — desktop */}
         {sidebar && (
           <>
-            <div className="hidden md:flex flex-shrink-0">
+            <div className="hidden md:block flex-shrink-0 relative">
               <Sidebar
                 {...sidebar}
                 collapsed={sidebarCollapsed}
